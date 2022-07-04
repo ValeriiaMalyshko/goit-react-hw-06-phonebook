@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import Contact from './Contact';
 import s from './Contact.module.css';
 
-export default function ContactList({ elements, onDelete }) {
+export default function ContactList({ contacts, onDeleteContact }) {
   return (
     <ul className={s.ul}>
-      {elements.map(({ id, name, number }) => (
-        <Contact
-          key={id}
-          id={id}
-          name={name}
-          number={number}
-          onDelete={onDelete}
-        />
+      {contacts.map(({ id, name, number }) => (
+        <li key={id}>
+          <Contact
+            id={id}
+            name={name}
+            number={number}
+            onDelete={() => onDeleteContact(id)}
+          />
+        </li>
       ))}
     </ul>
   );

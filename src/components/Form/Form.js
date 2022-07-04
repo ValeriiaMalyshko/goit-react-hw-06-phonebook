@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import s from './Form.module.css';
+import { connect } from 'react-redux';
+import contactsActions from '../../redux/contacts-actions';
 
-export default function Form({ onSubmit }) {
+const Form = onSubmit => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -73,8 +75,15 @@ export default function Form({ onSubmit }) {
       </button>
     </form>
   );
-}
+};
 
 Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: ({ name, number }) =>
+    dispatch(contactsActions.addContact({ name, number })),
+});
+
+export default connect(null, mapDispatchToProps)(Form);
